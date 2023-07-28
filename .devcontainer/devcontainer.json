@@ -5,8 +5,7 @@
   },
   "waitFor": "onCreateCommand",
   "updateContentCommand": "pip install -r requirements.txt",
-  "postCreateCommand": "",
-  "postAttachCommand": {
+  "postCreateCommand": {
     "server": "${containerWorkspaceFolder}/setup.sh"
   },
   "forwardPorts": [8000]
