@@ -4,9 +4,22 @@ This is a very simple Flask-SSE demo, based on the Flask-SSE demo at [bigboxcode
 
 Development was done using Github Codespaces.
 
-To run this application:
+whenNOTE:  If you create a new Github Codespace based on this repository, then when Codespace starts up the following setup will be executed and the web server will start running.
 
-1. Start a Redis instance (listening at default port 6379).
+To manually run this application:
+
+1. Install requirements:
+
+    Github Codespaces does this automatically, but if you are not using Github Codespaces:
+
+    ```
+    pip install Flask
+    pip install gevent
+    pip install gunicorn
+    pip install Flask-SSE
+    ```
+
+2. Start a Redis instance (listening at default port 6379).
 
     On Github Codespaces, I created a script that runs a Docker instance of Redis.  You can run the script:
 
@@ -21,7 +34,7 @@ To run this application:
     docker run --rm --name local-redis -p 6379:6379 -d redis
     ```
 
-2. Run the web server.
+3. Run the web server.
 
     I created a script that runs the Gunicorn web server on port 8000.  You can run the script:
 
@@ -35,13 +48,13 @@ To run this application:
     gunicorn sse_app:app --worker-class gevent --bind 127.0.0.1:8000
     ```
 
-3. If all goes well, load the website in a web browser.  Go to:
+4. If all goes well, load the website in a web browser.  Go to:
 
     ```
     http://localhost:8000
     ```
 
-4. Send POST JSON messages via the "publish" route, and it should be displayed in the web browser.  You can do this using an app like "Postman".
+5. Send POST JSON messages via the "publish" route, and it should be displayed in the web browser.  You can do this using an app like "Postman".
 
     Example:
 
