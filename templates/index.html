@@ -1,19 +1,34 @@
+<!DOCTYPE html>
+<html>
 <head>
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <title>Flask-SSE demo</title>
+</head>
 
 <body>
-    <div class="App">
-        <header class="App-header">
-            <img src="{{ url_for('static', filename='Octocat.png') }}" class="App-logo" alt="logo" />
-            <p>
-                GitHub Codespaces <span class="heart">♥️</span> Flask
-            </p>
-            <p class="small">
-                Edit <code>templates/index.html</code> and refresh to see your changes!
-            </p>
-        </header>
-    </div>
+    <h3>Messages will appear below :-</h3>
+    <ul id="list">
+        <!-- new content appears here -->
+    </ul>
 </body>
+
+<script>
+    const source = new EventSource("{{url_for('sse.stream') }}");
+
+    source.addEventListener('bigboxcode', function (currentEvent) {
+        if (currentEvent.data.length > 0) {
+            const listElement = document.getElementById('list');
+            const newElement = document.createElement('li');
+            newElement.innerText = currentEvent.data;
+
+            listElement.appendChild(newElement);
+
+            console.log(JSON.parse(event.data));
+        }
+    }, false);
+
+    source.addEventListener('error', function (currentEvent) {
+        console.log(currentEvent)
+    }, false);
+</script>
 
 </html>
