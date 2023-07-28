@@ -2,4 +2,3 @@
 
 ./redis_docker.sh
 
-./run.sh
